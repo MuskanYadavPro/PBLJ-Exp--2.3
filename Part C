@@ -1,0 +1,49 @@
+import java.util.*;
+import java.util.stream.*;
+
+class Product {
+    int id;
+    String name;
+    double price;
+
+    Product(int id, String name, double price) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+    }
+
+    public String toString() {
+        return id + " - " + name + " - $" + price;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        List<Product> products = Arrays.asList(
+            new Product(101, "Laptop", 75000),
+            new Product(102, "Phone", 25000),
+            new Product(103, "Monitor", 15000),
+            new Product(104, "Keyboard", 2000),
+            new Product(105, "Mouse", 1000)
+        );
+
+        // Filter products with price > 5000
+        System.out.println("Products with price > 5000:");
+        products.stream()
+                .filter(p -> p.price > 5000)
+                .forEach(System.out::println);
+
+        // Get average price
+        double averagePrice = products.stream()
+                .mapToDouble(p -> p.price)
+                .average()
+                .orElse(0.0);
+        System.out.println("\nAverage Price: " + averagePrice);
+
+        // Get list of product names in uppercase
+        List<String> upperNames = products.stream()
+                .map(p -> p.name.toUpperCase())
+                .collect(Collectors.toList());
+        System.out.println("\nProduct names in uppercase: " + upperNames);
+    }
+}
